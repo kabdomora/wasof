@@ -11,12 +11,11 @@ function getApi() {
       return response.json();
     })
     .then(function (data) {
-      // Use the console to examine the response
       console.log(data);
-
     });
-}
-// fetchButton.addEventListener('click', getApi);
+};
+
+fetchButton.addEventListener('click', getApi);
 
 
 // userContainer.innerHTML = "";
