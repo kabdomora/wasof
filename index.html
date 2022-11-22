@@ -6,12 +6,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WASOF ☁️</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
-</head>
-<body>
+    <script src="https://cdn.tailwindcss.com?plugins=typography,line-clamp"></script>
 
-    <button class="btn btn-danger" id="fetch-button">
-        Click Me
-      </button>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: '#da373d'
+            }
+          }
+        }
+      }
+    </script>
+    <style type="text/tailwindcss">
+      @layer components {
+        .bg-primary {
+          @apply bg-gradient-to-br 
+      from-amber-200
+      to-sky-300 
+      via-sky-100;
+        }
+      }
+    </style>    
+</head>
+<body class="w-full h-screen bg-primary">
+    <nav class="navigation flex justify-end">
+        <h1>☁️ Weather With a Side of Fog</h1>
+    </nav>
+
+    <aside>
+        Float it left. 
+        <h2>Search for a City</h2>
+        <form></form>
+        <button id="fetch-button" class="bg-cyan-800 
+        hover:bg-cyan-600 
+        focus:outline-none 
+        focus:ring focus:ring-cyan-300 
+        active:bg-cyan-700 
+        px-5 py-2 text-sm 
+        leading-5 rounded-full 
+        font-semibold text-white">
+          Search
+        </button>
+    </aside>
+
+
+    <main>
+
+
+    </main>
+
+
+    
     
     <script src="./assets/js/script.js"></script>
 </body>

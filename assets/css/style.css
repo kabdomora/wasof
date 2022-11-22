@@ -1,0 +1,15 @@
+:root {
+
+}
+
+.navigation {
+    background-color: rgb(233, 229, 111);
+    color: black;
+    padding: 20px;
+    width: 100%;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bolder;
+    font-size: 500%;
+    display: flex;
+    flex-wrap: wrap;
+}
