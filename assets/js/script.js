@@ -1,7 +1,18 @@
 // copied from 06-Act-10. Use for reference for api call
 
-var userContainer = document.getElementById('users');
+var resultContainer = document.getElementById('recents');
 var fetchButton = document.getElementById('fetch-button');
+var searchInput = document.getElementById('city-search');
+var msgDiv = document.querySelector("#msg");
+
+window.onload = localStorage.clear();
+
+var searches = [];
+
+function displayMessage(type, message) {
+  msgDiv.textContent = message;
+  msgDiv.setAttribute("class", type);
+}
 
 function getApi() {
   var requestUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=34.063229&lon=-118.359651&appid=c27a1f4c454fb85c78f18c582a3a25ef';
@@ -12,10 +23,39 @@ function getApi() {
     })
     .then(function (data) {
       console.log(data);
+
+      for (var i=0; i < data.length; i++) {
+        var recentSearches = document.createElement('button');
+        // finish this for loop
+      }
     });
 };
 
-fetchButton.addEventListener('click', getApi);
+fetchButton.addEventListener('click', function(event) {
+  event.preventDefault();
+
+  var searchItem = document.querySelector('#city-search').value;
+
+  if (searchItem === "") {
+    displayMessage('error', "Please enter a city name");
+  } else {
+    displayMessage('success', "");
+    searchItem = searchItem.replace(/\s+/g, '+').toLowerCase();
+    localStorage.setItem('searchCity', searchItem);
+    getApi();
+  }
+});
+
+
+
+
+{/* <button type="button" 
+class="w-full lg:flex items-center text-sm leading-6 text-slate-400 
+rounded-md ring-1 ring-slate-900/10 shadow-sm py-1.5 pl-2 pr-3 
+hover:ring-slate-300 dark:bg-slate-800 dark:highlight-white/5 
+dark:hover:bg-slate-700"> <span id="recent">Recently Searched</span>
+</button> */}
+
 
 
 // userContainer.innerHTML = "";

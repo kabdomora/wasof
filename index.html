@@ -32,15 +32,27 @@
 </head>
 <body class="w-full h-screen bg-primary">
     <nav class="navigation flex justify-end">
-        <h1>☁️ Weather With a Side of Fog</h1>
+        <h1>☁️ Weather <span class="italic">With a Side of Fog</span></h1>
     </nav>
 
     <div class="inline-grid grid-cols-2 gap-4">
 
-        <aside class="relative inline-block flex-auto w-80">
-            Float it left. 
-            <h2>Search for a City</h2>
-            <form></form>
+        <aside class="grid relative inline-block flex-auto flex-wrap w-80">            
+            <h2 class="inline-block text-2xl pb-2 sm:text-3xl font-extrabold text-slate-700 tracking-tight dark:text-slate-200">Search for a City</h2>
+            <div class="bg-white dark:bg-slate-900 relative pointer-events-auto">
+                <input id="city-search" type="text" placeholder="City Search"
+                        class="hidden w-full 
+                        lg:flex items-center 
+                        text-sm leading-6 
+                        text-slate-700 rounded-md 
+                        ring-1 ring-slate-900/10 
+                        shadow-sm py-1.5 pl-2 pr-3 
+                        hover:ring-slate-300 
+                        dark:bg-slate-800 
+                        dark:highlight-white/5 
+                        dark:hover:bg-slate-700">                  
+            </div>
+
             <button id="fetch-button" class="bg-cyan-800 
             hover:bg-cyan-600 
             focus:outline-none 
@@ -51,11 +63,27 @@
             font-semibold text-white">
             Search
             </button>
+
+            <div id="msg"></div>
+
+            <div class="grid">
+                <h2 class="inline-block text-2xl py-5 sm:text-3xl font-extrabold text-slate-700 tracking-tight dark:text-slate-200">Recently Searched</h2>
+                <div id="recents" class="bg-white dark:bg-slate-900 relative pointer-events-auto">
+                    <button type="button" 
+                    class="w-full lg:flex items-center text-sm leading-6 text-slate-400 
+                    rounded-md ring-1 ring-slate-900/10 shadow-sm py-1.5 pl-2 pr-3 
+                    hover:ring-slate-300 dark:bg-slate-800 dark:highlight-white/5 
+                    dark:hover:bg-slate-700"> <span id="recent">Recently Searched</span>
+                    </button>
+                </div>    
+            </div>
         </aside>
 
 
         <main class="relative flex-auto w-240">
-            <p>Display content here Display content here Display content here Display content here Display content here Display content here Display content here Display content here Display content here Display content here Display content here </p>
+            <p>Display content here Display content here Display content here Display content here 
+                Display content here Display content here Display content here Display content here 
+                Display content here Display content here Display content here </p>
 
 
         </main>
