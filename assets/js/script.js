@@ -7,6 +7,10 @@ var msgDiv = document.querySelector("#msg");
 
 window.onload = localStorage.clear();
 
+getCoordinates();
+// use this for the default load values
+
+
 var searches = [];
 
 function displayMessage(type, message) {
@@ -23,27 +27,58 @@ function listSearches() {
     var city = document.createElement('button');
     city.textContent = searched;
     city.setAttribute('class', "w-full lg:flex items-center text-sm leading-6 text-slate-400 rounded-md ring-1 ring-slate-900/10 shadow-sm py-1.5 pl-2 pr-3 hover:ring-slate-300 dark:bg-slate-800 dark:highlight-white/5 dark:hover:bg-slate-700");
+    city.setAttribute('id', "historical");
 
     searchHistory.appendChild(city);
   }
 }
 
-function getApi() {
-  var requestUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=34.063229&lon=-118.359651&appid=c27a1f4c454fb85c78f18c582a3a25ef';
+function getCoordinates() {
+  navigator.geolocation.getCurrentPosition((success) => {
+    console.log(success);
+  });
+}
 
-  fetch(requestUrl)
+function getApi() {  
+  var lastItem = localStorage.getItem('lastItem');
+  let citySearch = 'https://api.openweathermap.org/data/2.5/forecast?q='.concat(lastItem, '&appid=c27a1f4c454fb85c78f18c582a3a25ef');
+  console.log(citySearch);
+  
+  fetch(citySearch)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
       console.log(data);
-
-      for (var i=0; i < data.length; i++) {
-        var recentSearches = document.createElement('button');
-        // finish this for loop
-      }
+      localStorage.setItem('citydeets', JSON.stringify(data.city));  
+      let citydeets = window.localStorage.getItem('citydeets');
+      console.log(JSON.parse(citydeets));
+      var split1 = citydeets.substring(
+        citydeets.indexOf("{") + 1,
+        citydeets.lastIndexOf("}")
+      );
+      localStorage.setItem('split1', split1);
+      var coordinates = split1.substring(
+        split1.indexOf("{") + 1,
+        split1.lastIndexOf("}")
+      );
+      coordinates = coordinates.replace(",", "&");
+      coordinates = coordinates.replace(/(['"'])/g, '');
+      coordinates = coordinates.replace(":", "=");
+      coordinates = coordinates.replace(":", "=");
+      localStorage.setItem('coordinates', coordinates);
+      
+      getWeather();
     });
 };
+
+function getWeather() {
+  var coordinates = localStorage.getItem('coordinates');
+  let requestUrl = 'https://api.openweathermap.org/data/2.5/forecast?'.concat(coordinates, '&appid=c27a1f4c454fb85c78f18c582a3a25ef');
+  console.log(requestUrl);
+}
+
+
 
 fetchButton.addEventListener('click', function(event) {
   event.preventDefault();
@@ -54,9 +89,10 @@ fetchButton.addEventListener('click', function(event) {
     displayMessage('error', "Please enter a city name");
   } else {
     displayMessage('success', "");
-    searches.push(searchItem);
-    // searchItem = searchItem.replace(/\s+/g, '+').toLowerCase();
+    searches.push(searchItem);    
     localStorage.setItem('searchCity', JSON.stringify(searches));
+    searchItem = searchItem.replace(/\s+/g, '+').toLowerCase();
+    localStorage.setItem('lastItem', searchItem);
     searchInput.value = "";
     getApi();
     listSearches();
@@ -66,17 +102,3 @@ fetchButton.addEventListener('click', function(event) {
 
 
 
-
-
-
-
-// userContainer.innerHTML = "";
-// // TODO: Loop through the data and generate your HTML
-// for (var i = 0; i < data.length; i++) {
-//   var userName = document.createElement("h3");
-//   var userURL = document.createElement("p");
-//   userName.textContent = data[i].login;
-//   userURL.textContent = data[i].url;
-//   userContainer.append(userName);
-//   userContainer.append(userURL);
-// }
