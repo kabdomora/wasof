@@ -30,16 +30,16 @@
       }
     </style>    
 </head>
-<body class="w-full h-screen bg-primary">
+<body class="w-full h-full bg-primary">
     <nav class="navigation flex justify-end">
         <h1>☁️ Weather <span class="italic">With a Side of Fog</span></h1>
     </nav>
 
-    <div class="inline-grid grid-cols-2 gap-4">
+    <div class="flex flex-row flex-wrap pl-10">
 
-        <aside class="grid relative inline-block flex-auto flex-wrap w-80">            
-            <h2 class="inline-block text-2xl pb-2 sm:text-3xl font-extrabold text-slate-700 tracking-tight dark:text-slate-200">Search for a City</h2>
-            <div class="bg-white dark:bg-slate-900 relative pointer-events-auto">
+        <aside class="relative flex flex-col flex-auto flex-wrap w-80">            
+            <h2 class="inline-block text-2xl pb-2 sm:text-3xl font-extrabold text-slate-700 tracking-tight dark:text-slate-200 h-min">Search for a City</h2>
+            <form id="input" class="absolute bg-transparent dark:bg-slate-900 relative pointer-events-auto">
                 <input id="city-search" type="text" placeholder="City Search"
                         class="hidden w-full 
                         lg:flex items-center 
@@ -50,35 +50,223 @@
                         hover:ring-slate-300 
                         dark:bg-slate-800 
                         dark:highlight-white/5 
-                        dark:hover:bg-slate-700">                  
-            </div>
+                        dark:hover:bg-slate-700">   
+                        
+                <button id="fetch-button" class="absolute bg-cyan-800 
+                hover:bg-cyan-600 
+                focus:outline-none 
+                focus:ring focus:ring-cyan-300 
+                active:bg-cyan-700 
+                px-5 py-2 text-sm 
+                leading-5 rounded-full 
+                font-semibold text-white">
+                Search
+                </button>
+            </form>
 
-            <button id="fetch-button" class="bg-cyan-800 
-            hover:bg-cyan-600 
-            focus:outline-none 
-            focus:ring focus:ring-cyan-300 
-            active:bg-cyan-700 
-            px-5 py-2 text-sm 
-            leading-5 rounded-full 
-            font-semibold text-white">
-            Search
-            </button>
+            
 
             <div id="msg"></div>
 
             <div class="grid">
-                <h2 class="inline-block text-2xl py-5 sm:text-3xl font-extrabold text-slate-700 tracking-tight dark:text-slate-200">Recently Searched</h2>
-                <div id="recents" class="bg-white dark:bg-slate-900 relative pointer-events-auto">
+                <h2 class="inline-block text-2xl pt-10 sm:text-3xl font-extrabold text-slate-700 tracking-tight dark:text-slate-200">Recently Searched</h2>
+                <div id="recents" class="bg-transparent dark:bg-slate-900 relative pointer-events-auto">
                 </div>    
             </div>
         </aside>
 
 
-        <main class="relative flex-auto w-240">
-            <p>Display content here Display content here Display content here Display content here 
-                Display content here Display content here Display content here Display content here 
-                Display content here Display content here Display content here </p>
+        <main class="flex flex-col wasof relative flex-auto pr-40 pl-10">
+        <div class="flex flex-col py-5 px-30">
 
+          <div class="flex justify-between flex-wrap">
+            <div class="flex flex-col">
+              <div class="text-5xl font-bold" id="name">
+                City Name Here
+              </div>
+              <div class="text-2xl italic" id="date">
+                Date here
+              </div>
+            </div>
+          </div>
+          
+
+          <div class="flex flex-col bg-amber-200/50 p-10 rounded-lg my-2 w-2/12" id="current">
+
+            <div class="flex justify-between" id="weather">
+              <div>Humidity</div>
+              <div>value</div>
+            </div>
+
+            <div class="flex justify-between" id="weather">
+              <div>Pressure</div>
+              <div>value</div>
+            </div>
+
+            <div class="flex justify-between" id="weather">
+              <div>Temp</div>
+              <div>value</div>
+            </div>
+
+            <div class="flex justify-between" id="weather">
+              <div>Wind Speed</div>
+              <div>value</div>
+            </div>
+
+          </div>
+            
+          
+
+          <div id="weatherblock" class="flex flex-row bg-amber-200/50 p-10 rounded-lg my-2" id="forecast">
+
+            <!-- <div class="px-5 mx-5 bg-amber-200 rounded-lg" id="today">
+              <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+              <div class="font-light text-2xl">Friday test</div>
+              <div class="font-light"></div>
+              <div class="font-light">pressure test</div>
+              <div class="font-light">humid test</div>
+              <div class="font-light">wind test</div>
+            </div>
+
+            <div class="px-5 mx-5 bg-amber-200 rounded-lg" id="next">
+              <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+              <div class="text-2xl">Friday test</div>
+              <div class="font-light"></div>
+              <div class="font-light">pressure test</div>
+              <div class="font-light">humid test</div>
+              <div class="font-light">wind test</div>
+            </div>
+
+            <div class="px-5 mx-5 bg-amber-200 rounded-lg" id="next">
+              <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+              <div class="font-light text-2xl">Friday test</div>
+              <div class="font-light"></div>
+              <div class="font-light">pressure test</div>
+              <div class="font-light">humid test</div>
+              <div class="font-light">wind test</div>
+            </div>
+
+            <div class="px-5 mx-5 bg-amber-200 rounded-lg" id="next">
+              <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+              <div class="font-light text-2xl">Friday test</div>
+              <div class="font-light"></div>
+              <div class="font-light">pressure test</div>
+              <div class="font-light">humid test</div>
+              <div class="font-light">wind test</div>
+            </div>
+
+            <div class="px-5 mx-5 bg-amber-200 rounded-lg" id="next">
+              <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+              <div class="font-light text-2xl">Friday test</div>
+              <div class="font-light"></div>
+              <div class="font-light">pressure test</div>
+              <div class="font-light">humid test</div>
+              <div class="font-light">wind test</div>
+            </div>
+
+            <div class="px-5 mx-5 bg-amber-200 rounded-lg" id="next">
+              <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+              <div class="font-light text-2xl">Friday test</div>
+              <div class="font-light"></div>
+              <div class="font-light">pressure test</div>
+              <div class="font-light">humid test</div>
+              <div class="font-light">wind test</div>
+            </div>
+
+            <div class="px-5 mx-5 bg-amber-200 rounded-lg" id="next">
+              <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+              <div class="font-light text-2xl">Friday test</div>
+              <div class="font-light"></div>
+              <div class="font-light">pressure test</div>
+              <div class="font-light">humid test</div>
+              <div class="font-light">wind test</div>
+            </div>
+
+            <div class="px-5 mx-5 bg-amber-200 rounded-lg" id="next">
+              <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+              <div class="font-light text-2xl">Friday test</div>
+              <div class="font-light"></div>
+              <div class="font-light">pressure test</div>
+              <div class="font-light">humid test</div>
+              <div class="font-light">wind test</div>
+            </div>
+
+            <div class="px-5 mx-5 bg-amber-200 rounded-lg" id="next">
+              <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+              <div class="font-light text-2xl">Friday test</div>
+              <div class="font-light"></div>
+              <div class="font-light">pressure test</div>
+              <div class="font-light">humid test</div>
+              <div class="font-light">wind test</div>
+            </div>
+
+            <div class="px-5 mx-5 bg-amber-200 rounded-lg" id="next">
+              <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+              <div class="font-light text-2xl">Friday test</div>
+              <div class="font-light"></div>
+              <div class="font-light">pressure test</div>
+              <div class="font-light">humid test</div>
+              <div class="font-light">wind test</div>
+            </div>
+
+            <div class="px-5 mx-5 bg-amber-200 rounded-lg" id="next">
+              <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+              <div class="font-light text-2xl">Friday test</div>
+              <div class="font-light"></div>
+              <div class="font-light">pressure test</div>
+              <div class="font-light">humid test</div>
+              <div class="font-light">wind test</div>
+            </div>
+
+            <div class="px-5 mx-5 bg-amber-200 rounded-lg" id="next">
+              <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+              <div class="font-light text-2xl">Friday test</div>
+              <div class="font-light"></div>
+              <div class="font-light">pressure test</div>
+              <div class="font-light">humid test</div>
+              <div class="font-light">wind test</div>
+            </div>
+
+            <div class="px-5 mx-5 bg-amber-200 rounded-lg" id="next">
+              <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+              <div class="font-light text-2xl">Friday test</div>
+              <div class="font-light"></div>
+              <div class="font-light">pressure test</div>
+              <div class="font-light">humid test</div>
+              <div class="font-light">wind test</div>
+            </div>
+
+            <div class="px-5 mx-5 bg-amber-200 rounded-lg" id="next">
+              <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+              <div class="font-light text-2xl">Friday test</div>
+              <div class="font-light"></div>
+              <div class="font-light">pressure test</div>
+              <div class="font-light">humid test</div>
+              <div class="font-light">wind test</div>
+            </div>
+
+            <div class="px-5 mx-5 bg-amber-200 rounded-lg" id="next">
+              <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+              <div class="font-light text-2xl">Friday test</div>
+              <div class="font-light"></div>
+              <div class="font-light">pressure test</div>
+              <div class="font-light">humid test</div>
+              <div class="font-light">wind test</div>
+            </div>
+
+            <div class="px-5 mx-5 bg-amber-200 rounded-lg" id="next">
+              <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
+              <div class="font-light text-2xl">Friday test</div>
+              <div class="font-light"></div>
+              <div class="font-light">pressure test</div>
+              <div class="font-light">humid test</div>
+              <div class="font-light">wind test</div>
+            </div> -->
+
+          </div>
+        </div>
+
+        
 
         </main>
 
