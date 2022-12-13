@@ -52,7 +52,7 @@
             <h2 class="inline-block text-2xl pb-2 sm:text-3xl font-extrabold text-slate-700 tracking-tight dark:text-slate-200 h-min">Search for a City</h2>
             <form id="input" class="absolute bg-transparent dark:bg-slate-900 relative pointer-events-auto">
                 <input id="city-search" type="text" placeholder="City Search"
-                        class="hidden w-full 
+                        class="w-full 
                         lg:flex items-center 
                         text-sm leading-6 
                         text-slate-700 rounded-md 
@@ -63,17 +63,19 @@
                         dark:highlight-white/5 
                         dark:hover:bg-slate-700">   
                         
-                <button id="fetch-button" class="absolute bg-cyan-800 
-                hover:bg-cyan-600 
-                focus:outline-none 
-                focus:ring focus:ring-cyan-300 
-                active:bg-cyan-700 
-                px-5 py-2 text-sm 
-                leading-5 rounded-full 
-                font-semibold text-white">
-                Search
-                </button>
+
             </form>
+            <button id="fetch-button" class="bg-cyan-800 
+            hover:bg-cyan-600 
+            focus:outline-none 
+            focus:ring focus:ring-cyan-300 
+            active:bg-cyan-700 
+            px-5 py-2 text-sm 
+            leading-5 rounded-full 
+            font-semibold text-white
+            shrink">
+            Search
+            </button>
 
             
 
@@ -105,7 +107,7 @@
           </div>
           
 
-          <div class="flex flex-col bg-amber-200/50 p-10 rounded-lg my-2 w-2/12" id="current">
+          <div class="flex flex-col bg-amber-200/50 p-10 rounded-lg my-2 w-4/12" id="current">
 
             <div class="flex justify-between" id="weather">
               <div>Humidity</div>
@@ -131,7 +133,7 @@
             
           
 
-          <div id="weatherblock" class="flex flex-row bg-amber-200/50 p-10 rounded-lg my-2" id="forecast">
+          <div id="weatherblock" class="flex flex-row bg-amber-200/50 p-10 rounded-lg my-2 max-w-6xl overflow-x-auto shrink" id="forecast">
 
             <!-- <div class="px-5 mx-5 bg-amber-200 rounded-lg" id="today">
               <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon">
