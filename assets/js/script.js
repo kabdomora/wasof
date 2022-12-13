@@ -1,11 +1,16 @@
-// copied from 06-Act-10. Use for reference for api call
-
 var searchHistory = document.getElementById('recents');
 var fetchButton = document.getElementById('fetch-button');
 var searchInput = document.getElementById('city-search');
 var msgDiv = document.querySelector("#msg");
 var APIkey = 'c27a1f4c454fb85c78f18c582a3a25ef';
 var form = document.getElementById('input');
+var date = document.getElementById('today-date');
+var thisName = document.getElementById('city-name');
+var humidValue = document.getElementById('humidValue');
+var pressureValue = document.getElementById('pressureValue');
+var tempValue = document.getElementById('tempValue');
+var windValue = document.getElementById('windValue');
+var thisCity = document.getElementById('thisCity');
 
 var blocks = document.getElementById('weatherblock')
 
@@ -13,17 +18,27 @@ const list = document.querySelector('.wasof .daily');
 
 window.onload = localStorage.clear();
 
+var todayDate = dayjs();
+$('#1a').text(todayDate.format('dddd, MMMM D, YYYY'));
+
+function setDate() {
+  date.innerHTML = todayDate;
+}
+
+// sets the date to today and runs the initial call for my current location
+setDate();
 getMe();
+
 // use this for the default load values
-
-
 var searches = [];
 
+// will spit out error message if no data is entered into search
 function displayMessage(type, message) {
   msgDiv.textContent = message;
   msgDiv.setAttribute("class", type);
 }
 
+//creates the buttons for the searched cities
 function listSearches() {
   searchHistory.innerHTML ="";
 
@@ -41,10 +56,10 @@ function listSearches() {
 
 function getMe() {
   navigator.geolocation.getCurrentPosition((success) => {
-    console.log(success);
+    // console.log(success);
     let { latitude, longitude } = success.coords;
-    let getMyCoords = 'https://api.openweathermap.org/data/2.5/forecast?lat='.concat(latitude, '&lon=', longitude, '&appid=', APIkey, '&units=imperial');
-    console.log(getMyCoords);    
+    let getMyCoords = 'https://api.openweathermap.org/data/2.5/forecast?lat='.concat(latitude, '&lon=', longitude, '&appid=', APIkey, '&units=imperial&exclude=minutely,hourly,alerts');
+    // console.log(getMyCoords);    
 
     fetch(getMyCoords)
       .then(function (response) {
@@ -85,30 +100,31 @@ function getMe() {
   
             blocks.appendChild(forecastBlock);
             
-            console.log(dayname);
-            console.log(timeBlock);
-            console.log(icon);
-            console.log(mainTemp);            
-            console.log(minTemp);    
-            console.log(maxTemp);    
-            console.log(humidity);
-            console.log(pressure);
-            console.log(wind);
+            setCITYname();
           }
         });
 
-        localStorage.setItem('today', JSON.stringify(data.list[0]));
-        let today = localStorage.getItem('today');
-        console.log(JSON.parse(today));
-        // localStorage.setItem('todayDate', JSON.stringify(today));
-        // let todayDate = localStorage.getItem('todayDate');
-        // console.log(todayDate);
 
-        // localStorage.setItem('clouds', data.list[0].clouds);
+        var thisHumid = data.list[0].main.humidity;
+        var thisPressure = data.list[0].main.pressure;
+        var thisTemp = data.list[0].main.temp.toFixed(0);
+        var thisWind = data.list[0].wind.speed;
+        var thisIcon = data.list[0].weather[0].icon;
+
+        var weatherIcon = document.createElement('img');
+        weatherIcon.setAttribute('src', `http://openweathermap.org/img/wn/${thisIcon}@2x.png`);
+        weatherIcon.setAttribute('alt', 'weather graphic');
+        thisCity.innerHTML = '';
+        thisCity.appendChild(weatherIcon);
+        
+        humidValue.innerHTML = `${thisHumid}%`
+        pressureValue.innerHTML = `${thisPressure}`
+        tempValue.innerHTML = `${thisTemp} °F`
+        windValue.innerHTML = `${thisWind} mph`
 
         localStorage.setItem('citydeets', JSON.stringify(data.city)); 
         let citydeets = window.localStorage.getItem('citydeets');
-        console.log(JSON.parse(citydeets));
+        // console.log(JSON.parse(citydeets));
         var split1 = citydeets.substring(
         citydeets.indexOf("{") + 1,
         citydeets.lastIndexOf("}")
@@ -124,22 +140,22 @@ function getMe() {
       coordinates = coordinates.replace(":", "=");
       localStorage.setItem('coordinates', coordinates);
 
-      getWeather(data);
+      // getWeather(data);
       })
   });
 }
 
 function getApi() {  
   var lastItem = localStorage.getItem('lastItem');
-  let citySearch = 'https://api.openweathermap.org/data/2.5/forecast?q='.concat(lastItem, '&appid=', APIkey, '&units=imperial');
-  console.log(citySearch);
+  let citySearch = 'https://api.openweathermap.org/data/2.5/forecast?q='.concat(lastItem, '&appid=', APIkey, '&units=imperial&exclude=minutely,hourly,alerts');
+  // console.log(citySearch);
   
   fetch(citySearch)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
+      // console.log(data);
 
       let { name } = data.city;
       localStorage.setItem('cityName', name);
@@ -171,26 +187,32 @@ function getApi() {
      `;
 
           blocks.appendChild(forecastBlock);
-          
-          console.log(dayname);
-          console.log(timeBlock);
-          console.log(icon);
-          console.log(mainTemp);            
-          console.log(minTemp);    
-          console.log(maxTemp);    
-          console.log(humidity);
-          console.log(pressure);
-          console.log(wind);
+
+
+          setCITYname();
         }
       });
 
-      localStorage.setItem('today', JSON.stringify(data.list[0]));
-      let today = localStorage.getItem('today');
-      console.log(JSON.parse(today));
+      var thisHumid = data.list[0].main.humidity;
+      var thisPressure = data.list[0].main.pressure;
+      var thisTemp = data.list[0].main.temp.toFixed(0);
+      var thisWind = data.list[0].wind.speed;
+      var thisIcon = data.list[0].weather[0].icon;
+
+      var weatherIcon = document.createElement('img');
+      weatherIcon.setAttribute('src', `http://openweathermap.org/img/wn/${thisIcon}@2x.png`);
+      weatherIcon.setAttribute('alt', 'weather graphic');
+      thisCity.innerHTML = '';
+      thisCity.appendChild(weatherIcon);
+      
+      humidValue.innerHTML = `${thisHumid}%`
+      pressureValue.innerHTML = `${thisPressure}`
+      tempValue.innerHTML = `${thisTemp} °F`
+      windValue.innerHTML = `${thisWind} mph`
 
       localStorage.setItem('citydeets', JSON.stringify(data.city));  
       let citydeets = window.localStorage.getItem('citydeets');
-      console.log(JSON.parse(citydeets));
+      // console.log(JSON.parse(citydeets));
       var split1 = citydeets.substring(
         citydeets.indexOf("{") + 1,
         citydeets.lastIndexOf("}")
@@ -210,14 +232,22 @@ function getApi() {
 // PLEASE LET ME KNOW! I TRIED DATA.CITY[0].COORD BUT GOT AN ERROR BACK THAT 0 WASN'T DEFINED
 // I ALSO TRIED TO STRINGIFY/PARSE COORD FROM CITY BUT ALSO GOT AN ERROR THAT IT WAS UNDEFINED.
 
-      getWeather(data);
+      getCurrentWeather();
     });
 };
 
-function getWeather(data) {
-  var coordinates = localStorage.getItem('coordinates');
-  let requestUrl = 'https://api.openweathermap.org/data/2.5/forecast?'.concat(coordinates, '&appid=', APIkey, '&units=imperial');
-  console.log(requestUrl);
+function setCITYname() {
+  var thisCITYname = localStorage.getItem('cityName');
+  // console.log(thisCITYname);
+  thisName.innerHTML = thisCITYname;
+}
+
+
+
+// function getWeather(data) {
+//   var coordinates = localStorage.getItem('coordinates');
+//   let requestUrl = 'https://api.openweathermap.org/data/2.5/forecast?'.concat(coordinates, '&appid=', APIkey, '&units=imperial');
+  // console.log(requestUrl);
 
   // fetch(requestUrl)
   //   .then(function (response) {
@@ -244,7 +274,19 @@ function getWeather(data) {
   //     </figure>
   //   `;
   //   })
-}
+// }
+
+function getCurrentWeather() {
+  var lastItem = localStorage.getItem('lastItem');
+  let currentUrl = 'https://api.openweathermap.org/data/2.5/forecast?q='.concat(lastItem, '&appid=', APIkey, '&units=imperial&exclude=minutely,hourly,daily,alerts');
+  fetch(currentUrl)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    console.log(data);
+})
+};
 
 
 
@@ -272,7 +314,7 @@ form.addEventListener('submit', function(event) {
   event.preventDefault();
 
   var searchItem = searchInput.value;
-  console.log(searchItem);
+  // console.log(searchItem);
 
   
 
