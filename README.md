@@ -1,16 +1,21 @@
 # wasof
 With a side of fog
 
-GIVEN a weather dashboard with form inputs
+As a User: 
+I want to see my current location weather data so I can plan my day
+I want to see forcasted weather for the next 5 days so I can plan my week 
 
-<!-- WHEN I search for a city -->
-THEN I am presented with current and future conditions for that city and that city is added to the search history
+I want to search for other cities so I can plan trips or see how weather near my loved ones' homes will be
 
-<!-- WHEN I view current weather conditions for that city -->
-THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the the wind speed
+I want my search history to be logged so I can refer back to it for later use
 
-<!-- WHEN I view future weather conditions for that city -->
-THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
+When I search for a city, the data on the screen will auto update to show the weather forcast data for that city. 
+That city is added to my list of recently searched cities.
 
-<!-- WHEN I click on a city in the search history -->
-THEN I am again presented with current and future conditions for that city
+When I click on a city I searched already, the data for that city will reload and replace the data on screen
+
+When I review the forcasted data, I am able to scroll to view future days/times. 
+Data is presented to me in increments of each 3 hours and is tagged accordingly. 
+
+Deployed link: https://kabdomora.github.io/wasof/
+Deployed screenshot: ![Screenshot](Screenshot-deployed.PNG)
